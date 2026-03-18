@@ -24,8 +24,6 @@ PS4 FTP Explorer is a professional desktop application for managing files on you
 
 ### 🗂️ File Explorer
 - Connect to PS4 via FTP (custom IP, port, username, password)
-- Netflix-style horizontal card browser
-- Custom SVG icons per file type (PKG, BIN, SELF, image, video, audio, archive, key...)
 - Navigate folders with back/forward history
 - Drag & drop file upload directly into the browser
 
