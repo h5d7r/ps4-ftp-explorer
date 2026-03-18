@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PS4 FTP Explorer</title>
+  <link rel="stylesheet" href="sit.css"/>
+  <link rel="stylesheet" href="tex2.css"/>
+</head>
+<body>
+<div id="app">
+
+  <div class="titlebar">
+    <div class="titlebar-left">
+      <div class="titlebar-logo">PS</div>
+      <span class="titlebar-title"><span>PS4</span> FTP EXPLORER</span>
+    </div>
+    <div class="titlebar-drag"></div>
+    <div class="titlebar-right">
+      <a class="tg-pill" id="btn-telegram" href="#">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.246l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.313z"/></svg>
+        @C2_9H
+      </a>
+      <div class="win-controls">
+        <button class="win-btn min" id="btn-min">&#8722;</button>
+        <button class="win-btn max" id="btn-max">&#9633;</button>
+        <button class="win-btn close" id="btn-close">&#10005;</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-nav">
+    <button class="tab-btn active" data-tab="explorer">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+      File Explorer
+    </button>
+    <button class="tab-btn" data-tab="payload">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      Payload Sender
+    </button>
+    <button class="tab-btn" data-tab="about">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      About
+    </button>
+  </div>
+
+  <div class="tab-panels">
+
+    <div class="tab-panel active" id="panel-explorer">
+      <div class="main-layout">
+        <div class="sidebar">
+          <div class="sidebar-section">
+            <div class="sidebar-label">FTP Connection</div>
+            <div class="connect-form">
+              <input class="input-field" id="ftp-host" type="text" placeholder="PS4 IP Address" value="192.168.1.100"/>
+              <div class="input-row">
+                <input class="input-field" id="ftp-user" type="text" placeholder="Username" value="anonymous"/>
+                <input class="input-field port-field" id="ftp-port" type="number" placeholder="Port" value="21"/>
+              </div>
+              <input class="input-field" id="ftp-pass" type="password" placeholder="Password"/>
+              <button class="btn btn-primary" id="btn-connect">
+                <span id="connect-icon">⚡</span>
+                <span id="connect-label">Connect</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="status-bar">
+            <div class="status-dot" id="status-dot"></div>
+            <span id="status-text">Disconnected</span>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="path-bar" id="path-bar" style="display:none">
+            <div class="sidebar-label">Current Path</div>
+            <div class="path-display" id="path-display">/</div>
+          </div>
+
+          <div class="sidebar-actions" id="sidebar-actions" style="display:none">
+            <button class="btn btn-secondary" id="btn-upload">&#8593; Upload Files</button>
+            <button class="btn btn-secondary" id="btn-refresh">&#8635; Refresh</button>
+            <button class="btn btn-danger" id="btn-disconnect">&#9679; Disconnect</button>
+          </div>
+
+          <div class="sidebar-footer">
+            <div class="footer-credit">
+              <span class="footer-by">Developed by</span>
+              <span class="footer-name">Mr. Velox</span>
+            </div>
+            <a class="footer-tg" id="footer-tg-btn" href="#">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.246l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.313z"/></svg>
+              t.me/C2_9H
+            </a>
+          </div>
+        </div>
+
+        <div class="content-area">
+          <div class="content-header">
+            <div id="nav-row" style="display:none;margin-bottom:14px">
+              <button class="nav-back-btn" id="btn-back">&#8592; Back</button>
+            </div>
+            <div class="content-title" id="content-title">PS4 File Explorer</div>
+            <div class="content-subtitle" id="content-subtitle">Connect to your PS4 via FTP to browse files</div>
+          </div>
+          <div class="scroll-container" id="scroll-container">
+            <div class="empty-state" id="empty-state">
+              <div class="empty-icon">🎮</div>
+              <div class="empty-title">No Connection</div>
+              <div class="empty-sub">Enter your PS4's IP address<br/>and connect to start browsing</div>
+            </div>
+            <div id="file-browser" style="display:none"></div>
+          </div>
+          <div class="drop-zone" id="drop-zone">
+            <div class="drop-zone-inner">
+              <div class="drop-icon">
+                <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+                  <path d="M21 6V30M21 6L13 14M21 6L29 14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M6 34H36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="drop-label">Drop files to upload to PS4</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="panel-payload">
+      <div class="payload-layout">
+        <div class="payload-sidebar">
+          <div class="sidebar-section">
+            <div class="sidebar-label">PS4 Target</div>
+            <div class="connect-form">
+              <input class="input-field" id="pl-host" type="text" placeholder="PS4 IP Address"/>
+              <input class="input-field" id="pl-port" type="number" placeholder="Port (e.g. 9021)" style="width:100%"/>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="sidebar-section">
+            <div class="sidebar-label">Payload File</div>
+            <div class="connect-form">
+              <div class="file-pick-row" id="pl-file-display">
+                <span class="file-pick-name" id="pl-file-name">No file selected</span>
+              </div>
+              <button class="btn btn-secondary" id="btn-pl-pick">&#128190; Browse File</button>
+            </div>
+          </div>
+          <div class="sidebar-section">
+            <button class="btn btn-payload" id="btn-pl-send">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Send Payload
+            </button>
+          </div>
+          <div class="sidebar-footer">
+            <div class="footer-credit">
+              <span class="footer-by">Developed by</span>
+              <span class="footer-name">Mr. Velox</span>
+            </div>
+            <a class="footer-tg" id="footer-tg-payload" href="#">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.246l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.313z"/></svg>
+              t.me/C2_9H
+            </a>
+          </div>
+        </div>
+        <div class="payload-main">
+          <div class="payload-header">
+            <div class="content-title">Payload Sender</div>
+            <div class="content-subtitle">Send payloads to your PS4 via TCP socket</div>
+          </div>
+          <div class="payload-log-wrap">
+            <div class="payload-log-header">
+              <span class="sidebar-label" style="margin-bottom:0">Transmission Log</span>
+              <button class="log-clear-btn" id="btn-log-clear">Clear</button>
+            </div>
+            <div class="payload-log" id="payload-log">
+              <div class="log-entry info">Ready — select a file and enter PS4 IP + port</div>
+            </div>
+          </div>
+          <div class="payload-status-bar">
+            <div class="pl-status-dot" id="pl-status-dot"></div>
+            <span id="pl-status-text">Idle</span>
+            <span class="pl-status-sep">|</span>
+            <span id="pl-status-extra"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="panel-about">
+      <div class="about-wrap">
+        <div class="about-card">
+          <div class="about-logo">PS</div>
+          <div class="about-name">PS4 FTP Explorer</div>
+          <div class="about-version">v1.0.0</div>
+          <div class="about-divider"></div>
+          <div class="about-dev-label">Developed by</div>
+          <div class="about-dev-name">Mr. Velox</div>
+          <a class="about-tg-btn" id="about-tg-btn" href="#">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.246l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.313z"/></svg>
+            t.me/C2_9H
+          </a>
+          <div class="about-features">
+            <div class="about-feat">📁 FTP File Manager with Netflix-style UI</div>
+            <div class="about-feat">⚡ Payload Sender via TCP Socket</div>
+            <div class="about-feat">🖱️ Full Right-Click Context Menu</div>
+            <div class="about-feat">↑ Drag & Drop Upload Support</div>
+            <div class="about-feat">🎨 Custom SVG Icons per File Type</div>
+          </div>
+          <div class="about-copy">© 2025 Mr. Velox — All rights reserved</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="loading-overlay" id="loading">
+  <div class="loader-inner">
+    <div class="spinner"></div>
+    <div class="loader-text" id="loader-text">Loading...</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="context-menu" id="ctx-menu" style="display:none"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

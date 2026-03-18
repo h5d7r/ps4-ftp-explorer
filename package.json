@@ -1,0 +1,45 @@
+{
+  "name": "ps4-ftp-explorer",
+  "version": "1.0.0",
+  "description": "PS4 Advanced File Explorer with FTP & Payload Support",
+  "author": { "name": "Mr. Velox", "url": "https://t.me/C2_9H" },
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win nsis",
+    "build:mac": "electron-builder --mac dmg",
+    "build:linux": "electron-builder --linux AppImage"
+  },
+  "dependencies": {
+    "basic-ftp": "^5.0.5",
+    "fs-extra": "^11.2.0"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "com.mrvelox.ps4ftpexplorer",
+    "productName": "PS4 FTP Explorer",
+    "copyright": "© 2025 Mr. Velox. All rights reserved.",
+    "directories": { "output": "dist" },
+    "files": ["main.js", "preload.js", "renderer/**/*"],
+    "win": {
+      "target": [{ "target": "nsis", "arch": ["x64"] }],
+      "icon": "renderer/icon.ico"
+    },
+    "mac": { "target": "dmg", "icon": "renderer/icon_512.png", "category": "public.app-category.utilities" },
+    "linux": { "target": "AppImage", "icon": "renderer/icon_512.png", "category": "Utility" },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "renderer/icon.ico",
+      "uninstallerIcon": "renderer/icon.ico",
+      "installerHeaderIcon": "renderer/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "PS4 FTP Explorer",
+      "runAfterFinish": true
+    }
+  }
+}

@@ -1,0 +1,44 @@
+.hm-featured { padding: 0 26px 22px; }
+.hm-featured-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.hm-section-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-2); display: flex; align-items: center; gap: 9px; }
+.hm-section-title::before { content: ''; display: block; width: 3px; height: 13px; background: var(--accent-bright); border-radius: 2px; }
+.hm-count-badge { font-family: var(--font-mono); font-size: 10px; color: var(--text-3); background: rgba(255,255,255,0.04); padding: 2px 7px; border-radius: 20px; border: 1px solid var(--border); }
+
+.hm-track { display: flex; gap: 9px; overflow-x: auto; overflow-y: visible; padding: 7px 2px 14px; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.07) transparent; }
+.hm-track::-webkit-scrollbar { height: 3px; }
+.hm-track::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.07); border-radius: 2px; }
+
+.hm-fcard { flex-shrink: 0; width: 155px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-card); cursor: pointer; position: relative; overflow: hidden; transition: all var(--t-med); transform-origin: bottom center; }
+.hm-fcard:hover { transform: translateY(-6px) scale(1.03); border-color: var(--border-active); background: var(--bg-card-hover); box-shadow: var(--shadow-glow), var(--shadow-card); z-index: 10; }
+.hm-fcard:active { transform: translateY(-3px) scale(1.01); }
+.hm-fcard.selected { border-color: var(--accent-bright); background: rgba(0,168,255,0.08); box-shadow: 0 0 0 1px rgba(0,168,255,0.28), var(--shadow-glow); }
+
+.hm-fcard-thumb { height: 106px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: linear-gradient(160deg,rgba(255,255,255,0.03) 0%,transparent 100%); }
+.hm-fcard-thumb::after { content:''; position:absolute; inset:0; background:linear-gradient(to bottom,transparent 50%,var(--bg-card) 100%); transition:all var(--t-med); }
+.hm-fcard:hover .hm-fcard-thumb::after { background:linear-gradient(to bottom,transparent 40%,var(--bg-card-hover) 100%); }
+
+.hm-fcard-icon { font-size: 44px; position: relative; z-index: 1; transition: transform var(--t-med); filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); }
+.hm-fcard-svg { font-size: unset; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; transition: transform var(--t-med); }
+.hm-fcard-svg svg { width: 48px; height: 48px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.55)); transition: transform var(--t-med), filter var(--t-med); }
+.hm-fcard:hover .hm-fcard-icon { transform: scale(1.1) translateY(-3px); }
+.hm-fcard:hover .hm-fcard-svg { transform: scale(1.12) translateY(-4px); }
+.hm-fcard:hover .hm-fcard-svg svg { filter: drop-shadow(0 8px 18px rgba(0,168,255,0.24)); }
+
+.hm-fcard-body { padding: 9px 11px 11px; }
+.hm-fcard-name { font-size: 12px; font-weight: 600; color: var(--text-1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 5px; letter-spacing: 0.2px; }
+.hm-fcard-meta { font-family: var(--font-mono); font-size: 10px; color: var(--text-3); display: flex; flex-direction: column; gap: 3px; }
+.hm-fcard-size { color: var(--text-2); }
+.hm-fcard-type-tag { display: inline-flex; align-items: center; padding: 2px 6px; border-radius: 20px; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-top: 3px; width: fit-content; }
+.hm-fcard-type-tag.dir { background: rgba(0,112,209,0.17); color: var(--accent-bright); border: 1px solid rgba(0,168,255,0.2); }
+.hm-fcard-type-tag.file { background: rgba(255,255,255,0.05); color: var(--text-3); border: 1px solid var(--border); }
+
+.hm-fcard-glow { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 70%); transition: opacity var(--t-med); pointer-events: none; }
+.hm-fcard:hover .hm-fcard-glow { opacity: 1; }
+
+.hm-fcard-hover-actions { position: absolute; top: 0; right: 0; padding: 7px; display: flex; flex-direction: column; gap: 5px; opacity: 0; transform: translateX(7px); transition: all var(--t-med); z-index: 20; }
+.hm-fcard:hover .hm-fcard-hover-actions { opacity: 1; transform: translateX(0); }
+.hm-action-btn { width: 27px; height: 27px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; transition: all var(--t-fast); backdrop-filter: blur(8px); }
+.hm-action-btn.download { background: rgba(0,168,255,0.18); color: var(--accent-bright); }
+.hm-action-btn.download:hover { background: var(--accent-bright); color: #000; transform: scale(1.1); }
+.hm-action-btn.del { background: rgba(232,39,75,0.18); color: var(--danger); }
+.hm-action-btn.del:hover { background: var(--danger); color: #fff; transform: scale(1.1); }
